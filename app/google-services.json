@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1051398648783",
+    "firebase_url": "https://robbieapp-5d360.firebaseio.com",
+    "project_id": "robbieapp-5d360",
+    "storage_bucket": "robbieapp-5d360.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051398648783:android:bc4c19df5c2a3f7162d8ba",
+        "android_client_info": {
+          "package_name": "com.example.robbie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051398648783-o48uvdil9mhm1enloso9bknsl9gf4ttr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.robbie",
+            "certificate_hash": "42e7c79b6c23e097d32f9611e59df33dad93d4d1"
+          }
+        },
+        {
+          "client_id": "1051398648783-vto2qjtcm39tgns1mrag5at965dur12g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2NxilLHgA8afJUGUSxsX7FLNG8oYxQQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051398648783-vto2qjtcm39tgns1mrag5at965dur12g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

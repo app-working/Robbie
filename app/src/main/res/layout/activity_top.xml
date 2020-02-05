@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.top.TopActivity">
+    <TextView
+            android:layout_width="278dp"
+            android:layout_height="42dp"
+            android:id="@+id/displayName" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp" android:gravity="center" android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_signout" android:layout_marginEnd="8dp"
+            />
+    <Button
+            android:text="@string/signout"
+            android:layout_width="100dp"
+            android:layout_height="42dp"
+            android:id="@+id/button_signout" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.972" android:textSize="12sp"
+            android:background="@drawable/shape_rounded_corners"
+    />
+    <fragment
+            android:id="@+id/nav_host_fragment"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/bottom_navigation_view"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/navigation"
+            app:layout_constraintHorizontal_bias="0.0"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
