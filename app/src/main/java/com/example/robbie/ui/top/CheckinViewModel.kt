@@ -3,6 +3,7 @@ package com.example.robbie.ui.top
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,9 +14,11 @@ import com.example.robbie.data.repository.FirebaseAuthRepository
 import com.example.robbie.domain.usecase.CheckinUseCase
 import com.example.robbie.domain.usecase.UserUseCase
 import com.example.robbie.util.AppSchedulerProvider
+import com.example.robbie.util.isLuckey
 import com.example.robbie.util.toLiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragment.activity!!.application) {
@@ -24,7 +27,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     var employeeInfo = UserUseCase().findByUserId().subscribeOn(schedulerProvider.io()).toLiveData()
 
     // Checkin Event
-    fun checkin(view: View) {
+    fun doCheckin(view: View) {
         if (employeeInfo.value == null || employeeInfo.value!!.employeeId == "") {
             AlertDialog.Builder(fragment.context!!)
                 .setTitle("")
@@ -39,7 +42,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
         } else {
             IntentIntegrator.forSupportFragment(fragment).apply {
                 setOrientationLocked(true)
-                setPrompt("Scan a QR code")
+                setPrompt("QRコードを読み込んでください")
                 captureActivity = RobbieCaptureActivity::class.java
             }.initiateScan()
         }
@@ -48,7 +51,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     // Store CheckinInfo
     fun storeCheckinInfo(qrData: String) {
         // イベントデータ(JSON)読み込み
-            // ex.{"event_id":1, "event_name":"2020年1月WM&P部門会議", "event_point":10, "remarks":"通常開催"}
+            // ex.{"event_id":3, "event_name":"2020年3月WM&P部門会議", "event_point":10, "remarks":"通常開催"}
         try {
             // QRコード(JSON)パース
             val eventInfo = JSONObject(qrData)
@@ -61,16 +64,20 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
             val employeeName = FirebaseAuthRepository().getCurrentUser()!!.displayName!!
 
             // チェックイン情報更新(新規登録 or 上書き)
-            AlertDialog.Builder(fragment.context!!)
-                .setIcon(R.drawable.robbie)
-                .setTitle("確認")
-                .setMessage(eventName + "にチェックインします" + "（社員番号 : " + employeeId + "）")
-                .setPositiveButton("はい") {_, _ ->
-                    val checkinInfo = Checkin(employeeId, employeeName, eventId, eventName, eventPoint, remarks)
-                    CheckinUseCase().storeCheckinInfo(fragment.activity!!.application, checkinInfo)
-                }
-                .setNegativeButton("キャンセル") {_, _ -> }
-                .show()
+            // TODO 抽選
+//            AlertDialog.Builder(fragment.context!!)
+//                .setIcon(R.drawable.robbie)
+//                .setTitle("確認")
+//                .setMessage(eventName + "にチェックインします" + "（社員番号 : " + employeeId + "）")
+//                .setPositiveButton("はい") {_, _ ->
+//                    val checkinInfo = Checkin(employeeId, employeeName, eventId, eventName, eventPoint, remarks)
+//                    CheckinUseCase().storeCheckinInfo(fragment.activity!!.application, checkinInfo)
+//                }
+//                .setNegativeButton("キャンセル") {_, _ -> }
+//                .show()
+            val checkinInfo = Checkin(employeeId, employeeName, eventId, eventName, eventPoint, remarks)
+                CheckinUseCase().storeCheckinInfo(checkinInfo, fragment)
+
         } catch (e: Exception) {
             Log.d("Robbie QRRead Failed", e.toString())
             AlertDialog.Builder(fragment.context!!)

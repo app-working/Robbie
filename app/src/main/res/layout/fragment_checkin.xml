@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="1dp" android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent" android:background="#FFFFFF"
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0"
             android:gravity="center">
         <ImageView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true" app:srcCompat="@drawable/baseline_photo_camera_white_24dp"
                 android:id="@+id/floating_checkin" app:backgroundTint="#F44336" app:fabCustomSize="150dp"
-                app:maxImageSize="70dp" android:layout_marginTop="32dp" android:onClick="@{viewModel::checkin}"/>
+                app:maxImageSize="70dp" android:layout_marginTop="32dp" android:onClick="@{viewModel::doCheckin}"/>
         <TextView
                 android:text="チェックイン"
                 android:layout_width="match_parent"

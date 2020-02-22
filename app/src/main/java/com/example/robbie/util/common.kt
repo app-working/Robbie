@@ -11,6 +11,10 @@ import io.reactivex.schedulers.Schedulers
 
 fun <T> Publisher<T>.toLiveData() = LiveDataReactiveStreams.fromPublisher(this) as LiveData<T>
 
+fun isLuckey() : Boolean {
+    return true
+}
+
 interface SchedulerProvider {
     fun ui(): Scheduler
 

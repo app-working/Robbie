@@ -3,6 +3,7 @@ package com.example.robbie.ui.top
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,10 @@ class CheckinFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, factory).get(CheckinViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.employeeInfo.observe(this, Observer {
-            if (!it.employeeId.isNullOrEmpty()) prefs.edit().putString("EmployeeId", it.employeeId).apply()
+            Log.d("Robbie checkinInfo employeeInfo observe ", "Start")
+            if (!it.employeeId.isNullOrEmpty()) {
+                prefs.edit().putString("EmployeeId", it.employeeId).apply()
+            }
         })
     }
 

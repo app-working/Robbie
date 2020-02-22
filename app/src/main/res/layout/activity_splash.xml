@@ -25,6 +25,6 @@
             app:layout_constraintTop_toBottomOf="@+id/circleImageView" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.071" android:gravity="center"
-            android:textColor="#7ECEF5" android:textSize="64sp" android:textStyle="bold"
+            android:textColor="#41BBF5" android:textSize="64sp" android:textStyle="bold"
             app:layout_constraintHorizontal_bias="0.496"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
