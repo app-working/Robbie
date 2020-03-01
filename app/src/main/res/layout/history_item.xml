@@ -12,9 +12,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp" app:srcCompat="@drawable/baseline_history_black_24dp"
-                    android:id="@+id/image_history" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" app:srcCompat="@drawable/baseline_history_black_24dp"
+                    android:id="@+id/image_history" android:layout_marginTop="18dp" android:layout_marginBottom="18dp"
+                    android:tint="#6E6E6E"
+                    android:layout_marginLeft="10dp"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="300dp"

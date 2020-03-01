@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.robbie.data.model.Checkin
 import com.example.robbie.data.repository.FireStoreRepository
 import com.example.robbie.ui.top.CheckinDialogFragment
+import com.example.robbie.util.getDialogMessage
 import com.example.robbie.util.isLuckey
 import com.google.firebase.firestore.QuerySnapshot
 import io.reactivex.BackpressureStrategy
@@ -71,9 +72,10 @@ class CheckinUseCase {
     // Store CheckinInfo
     fun storeCheckinInfo(checkinInfo: Checkin, fragment: Fragment) : Boolean{
         return fireStoreRepository.saveCheckin(checkinInfo).addOnCompleteListener {
-            CheckinDialogFragment().show(fragment.activity!!.supportFragmentManager, "Robbie")
+            CheckinDialogFragment("Robbie", getDialogMessage(checkinInfo)).show(fragment.activity!!.supportFragmentManager, "Robbie")
         }.addOnFailureListener {
             Log.d("Robbie storeCheckinInfo is ", "Not Successful")
         }.isSuccessful
     }
+
 }

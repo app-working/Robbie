@@ -51,7 +51,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     // Store CheckinInfo
     fun storeCheckinInfo(qrData: String) {
         // イベントデータ(JSON)読み込み
-            // ex.{"event_id":3, "event_name":"2020年3月WM&P部門会議", "event_point":10, "remarks":"通常開催"}
+            // ex.{"event_id":1, "event_name":"2020年4月WM&P部門会議", "event_point":1, "remarks":"通常開催"}
         try {
             // QRコード(JSON)パース
             val eventInfo = JSONObject(qrData)
@@ -65,19 +65,8 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
 
             // チェックイン情報更新(新規登録 or 上書き)
             // TODO 抽選
-//            AlertDialog.Builder(fragment.context!!)
-//                .setIcon(R.drawable.robbie)
-//                .setTitle("確認")
-//                .setMessage(eventName + "にチェックインします" + "（社員番号 : " + employeeId + "）")
-//                .setPositiveButton("はい") {_, _ ->
-//                    val checkinInfo = Checkin(employeeId, employeeName, eventId, eventName, eventPoint, remarks)
-//                    CheckinUseCase().storeCheckinInfo(fragment.activity!!.application, checkinInfo)
-//                }
-//                .setNegativeButton("キャンセル") {_, _ -> }
-//                .show()
             val checkinInfo = Checkin(employeeId, employeeName, eventId, eventName, eventPoint, remarks)
                 CheckinUseCase().storeCheckinInfo(checkinInfo, fragment)
-
         } catch (e: Exception) {
             Log.d("Robbie QRRead Failed", e.toString())
             AlertDialog.Builder(fragment.context!!)

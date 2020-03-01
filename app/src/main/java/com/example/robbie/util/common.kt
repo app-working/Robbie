@@ -4,6 +4,7 @@ import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
+import com.example.robbie.data.model.Checkin
 import org.reactivestreams.Publisher
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,4 +43,8 @@ object CustomBindingAdapter {
     fun showHide(view: View, show: Boolean) {
         view.visibility = if (show) View.VISIBLE else View.GONE
     }
+}
+
+fun getDialogMessage(checkinInfo: Checkin) : String {
+    return "チェックインが完了しました" + "\n" + checkinInfo.eventName + "\n" + "（社員番号 : " + checkinInfo.employeeId + "）"
 }
