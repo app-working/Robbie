@@ -30,7 +30,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     fun doCheckin(view: View) {
         if (employeeInfo.value == null || employeeInfo.value!!.employeeId == "") {
             AlertDialog.Builder(fragment.context!!)
-                .setTitle("")
+                .setTitle("Confirm")
                 .setMessage("社員番号が登録されていません。社員番号を更新しますか？")
                 .setPositiveButton("はい") {_, _ ->
                     val bottomNavigationView = fragment.activity!!.findViewById<BottomNavigationView>(R.id.navigation)

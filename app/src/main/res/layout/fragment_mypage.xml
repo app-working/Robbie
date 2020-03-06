@@ -87,7 +87,7 @@
                         android:gravity="center" android:textSize="24sp" android:textStyle="bold" android:hint="0 pt"
                         android:text="@{viewModel.userPoint.toString()}"/>
                 <TextView
-                        android:text="社員番号"
+                        android:text="社員番号更新"
                         android:layout_width="match_parent"
                         android:layout_height="30dp" android:id="@+id/label_userId" android:textSize="14sp"
                         android:layout_marginTop="16dp" android:paddingLeft="8dp"/>
@@ -109,7 +109,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         <TextView
-                                android:text="社員番号（7桁）："
+                                android:text="社員番号："
                                 android:layout_width="160dp"
                                 android:layout_height="60dp"
                                 android:id="@+id/label_employeeId"

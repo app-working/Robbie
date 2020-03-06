@@ -1,6 +1,11 @@
 package com.example.robbie.util
 
+import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.View
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -47,4 +52,13 @@ object CustomBindingAdapter {
 
 fun getDialogMessage(checkinInfo: Checkin) : String {
     return "チェックインが完了しました" + "\n" + checkinInfo.eventName + "\n" + "（社員番号 : " + checkinInfo.employeeId + "）"
+}
+
+fun isActiveNetwork(activity: Activity) : Boolean {
+    val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+    activeNetwork?.let {
+        return it.isConnected
+    }
+    return false
 }

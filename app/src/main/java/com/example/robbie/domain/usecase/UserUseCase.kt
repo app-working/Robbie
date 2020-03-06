@@ -47,9 +47,9 @@ class UserUseCase {
     // Store EmployeeId
     fun storeEmployeeId(app: Application, user: User) {
         fireStoreRepository.saveUser(user).addOnCompleteListener {
-            Toast.makeText(app, "更新しました", Toast.LENGTH_LONG).show()
+            Toast.makeText(app, "更新が完了しました", Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
-            Toast.makeText(app, "更新失敗しました", Toast.LENGTH_LONG).show()
+            Toast.makeText(app, "更新が失敗しました", Toast.LENGTH_LONG).show()
         }
     }
 }

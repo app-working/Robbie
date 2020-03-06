@@ -10,9 +10,10 @@ import com.example.robbie.R
 import com.example.robbie.data.repository.FirebaseAuthRepository
 import com.example.robbie.domain.usecase.AuthUseCase
 import com.example.robbie.ui.login.LoginActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.journeyapps.barcodescanner.CaptureActivity
 import kotlinx.android.synthetic.main.activity_top.*
+import com.example.robbie.util.isActiveNetwork
+
 
 class TopActivity : AppCompatActivity() {
 
@@ -22,7 +23,7 @@ class TopActivity : AppCompatActivity() {
 
         button_signout.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("")
+                .setTitle("Confirm")
                 .setMessage("ログアウトしますか？")
                 .setPositiveButton("はい") {_, _ ->
                     AuthUseCase().signOutWithGoogle(this)
@@ -43,6 +44,17 @@ class TopActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // ネットワーク接続チェック
+        if (!isActiveNetwork(this)) {
+            AlertDialog.Builder(this)
+                .setTitle("Warning")
+                .setMessage("Robbieにアクセスできません\nインターネット接続を確認してください")
+                .setPositiveButton("確認") {_, _ ->
+                    val intent = Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+                    startActivity(intent)
+                }
+                .show()
+        }
         // 認証チェック
         if (!AuthUseCase().isLogin()) {
             val intent = Intent(this, LoginActivity::class.java)
