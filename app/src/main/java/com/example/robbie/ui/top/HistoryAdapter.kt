@@ -3,12 +3,15 @@ package com.example.robbie.ui.top
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.robbie.R
 import com.example.robbie.data.model.Checkin
 import com.example.robbie.databinding.HistoryItemBinding
+import com.example.robbie.util.Constants
 
 class HistoryAdapter(private val lifeCycleOwner: LifecycleOwner, private val viewModel: HistoryViewModel): RecyclerView.Adapter<HistoryAdapter.BindingHolder>() {
 
@@ -40,6 +43,9 @@ class HistoryAdapter(private val lifeCycleOwner: LifecycleOwner, private val vie
         holder.eventName.text = items[position].eventName
         holder.checkinTime.text = items[position].registerTime.toString()
         holder.point.text = items[position].eventPoint.toString()+ "pt"
+        if (items[position].status == Constants.LOTTERY_LUCKEY) {
+            holder.image.setImageResource(R.drawable.baseline_redeem_white_24)
+        }
         holder.binding.viewModel = viewModel
         holder.binding.lifecycleOwner = lifeCycleOwner
     }
@@ -48,6 +54,7 @@ class HistoryAdapter(private val lifeCycleOwner: LifecycleOwner, private val vie
         val eventName: TextView = binding.textEventName
         val checkinTime: TextView = binding.textCheckinTime
         val point: TextView = binding.textPoint
+        val image: ImageView = binding.imageHistory
     }
 
     private fun update(list: List<Checkin>) {

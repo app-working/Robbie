@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.view.View
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -14,12 +13,16 @@ import org.reactivestreams.Publisher
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlin.random.Random
+
+class Constants {
+    companion object {
+        const val LOTTERY_NORMAL = 0
+        const val LOTTERY_LUCKEY = 1
+    }
+}
 
 fun <T> Publisher<T>.toLiveData() = LiveDataReactiveStreams.fromPublisher(this) as LiveData<T>
-
-fun isLuckey() : Boolean {
-    return true
-}
 
 interface SchedulerProvider {
     fun ui(): Scheduler
@@ -30,6 +33,7 @@ interface SchedulerProvider {
 
     fun io(): Scheduler
 }
+
 class AppSchedulerProvider : SchedulerProvider {
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
 
@@ -50,15 +54,25 @@ object CustomBindingAdapter {
     }
 }
 
-fun getDialogMessage(checkinInfo: Checkin) : String {
-    return "チェックインが完了しました" + "\n" + checkinInfo.eventName + "\n" + "（社員番号 : " + checkinInfo.employeeId + "）"
-}
-
 fun isActiveNetwork(activity: Activity) : Boolean {
     val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
     activeNetwork?.let {
         return it.isConnected
     }
+    return false
+}
+
+fun doLottery(rate: Int) : Int {
+    // 抽選処理
+    if (rate > 0 && rate -1 == Random.nextInt(rate)) {
+            return Constants.LOTTERY_LUCKEY
+    }
+    return Constants.LOTTERY_NORMAL
+}
+
+//  抽選結果取得(本来はModel/Entityに紐づく)
+fun isLuckey(checkin: Checkin) : Boolean {
+    if (checkin.status == Constants.LOTTERY_LUCKEY) return true
     return false
 }

@@ -8,5 +8,6 @@ data class Checkin(var employeeId: String = "",
                    var eventId: Int = 0,
                    var eventName: String = "",
                    var eventPoint: Int = 0,
+                   var status: Int = 0,
                    var remarks: String = "",
                    var registerTime: Date = Date()) : Serializable

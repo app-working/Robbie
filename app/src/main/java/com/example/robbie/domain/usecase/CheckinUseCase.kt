@@ -1,23 +1,13 @@
 package com.example.robbie.domain.usecase
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.robbie.data.model.Checkin
 import com.example.robbie.data.repository.FireStoreRepository
 import com.example.robbie.ui.top.CheckinDialogFragment
-import com.example.robbie.util.getDialogMessage
-import com.example.robbie.util.isLuckey
-import com.google.firebase.firestore.QuerySnapshot
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
-import java.util.*
-import java.util.zip.DeflaterOutputStream
 
 class CheckinUseCase {
 
@@ -72,7 +62,7 @@ class CheckinUseCase {
     // Store CheckinInfo
     fun storeCheckinInfo(checkinInfo: Checkin, fragment: Fragment) : Boolean{
         return fireStoreRepository.saveCheckin(checkinInfo).addOnCompleteListener {
-            CheckinDialogFragment("Robbie", getDialogMessage(checkinInfo)).show(fragment.activity!!.supportFragmentManager, "Robbie")
+            CheckinDialogFragment(checkinInfo).show(fragment.activity!!.supportFragmentManager, "Robbie")
         }.addOnFailureListener {
             Log.d("Robbie storeCheckinInfo is ", "Not Successful")
         }.isSuccessful
