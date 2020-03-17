@@ -37,7 +37,7 @@ class CheckinFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, factory).get(CheckinViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.employeeInfo.observe(this, Observer {
-            Log.d("Robbie checkinInfo employeeInfo observe ", "Start")
+            Log.d("Robbie viewmodel.employeeInfo observe ", "employeeId is " + it.employeeId)
             if (!it.employeeId.isNullOrEmpty()) {
                 prefs.edit().putString("EmployeeId", it.employeeId).apply()
             }

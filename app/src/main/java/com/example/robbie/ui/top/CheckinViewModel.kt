@@ -1,28 +1,29 @@
 package com.example.robbie.ui.top
 
-import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.robbie.R
 import com.example.robbie.data.model.Checkin
 import com.example.robbie.data.repository.FirebaseAuthRepository
 import com.example.robbie.domain.usecase.CheckinUseCase
 import com.example.robbie.domain.usecase.UserUseCase
-import com.example.robbie.util.*
+import com.example.robbie.util.AppSchedulerProvider
+import com.example.robbie.util.doLottery
+import com.example.robbie.util.toLiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragment.activity!!.application) {
 
     val schedulerProvider = AppSchedulerProvider()
-    var employeeInfo = UserUseCase().findByUserId().subscribeOn(schedulerProvider.io()).toLiveData()
+    val employeeInfo = UserUseCase().findByUserId().subscribeOn(schedulerProvider.io()).toLiveData()
 
     // Checkin Event
     fun doCheckin(view: View) {
@@ -49,7 +50,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     // Store CheckinInfo
     fun storeCheckinInfo(qrData: String) {
         // イベントデータ(JSON)読み込み
-            // ex.{"event_id":2, "event_name":"2020年5月WM&P部門会議", "event_point":1, "remarks":"通常開催", "lottery_rate":10}
+            // ex.{"event_id":3, "event_name":"2020年6月WM&P部門会議", "event_point":1, "remarks":"通常開催", "lottery_rate":10}
         try {
             // QRコード(JSON)パース
             val eventInfo = JSONObject(qrData)
@@ -65,9 +66,9 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
                 // 抽選
                 status = doLottery(eventInfo.getInt("lottery_rate"))
             }
-
-            // チェックイン情報更新(新規登録 or 上書き)
+            // 重複チェック&チェックイン情報更新
             CheckinUseCase().storeCheckinInfo(checkinInfo, fragment)
+
         } catch (e: Exception) {
             Log.d("Robbie QRRead Failed", e.toString())
             AlertDialog.Builder(fragment.context!!)
