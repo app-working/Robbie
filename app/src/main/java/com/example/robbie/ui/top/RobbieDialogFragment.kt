@@ -25,9 +25,9 @@ class CheckinDialogFragment(val checkinInfo: Checkin) : DialogFragment() {
             }
             // 当選の場合は、ダイアログ(View)の内容を変更する
             if (isLuckey(checkinInfo)) {
-                view.title.setBackgroundColor(Color.rgb(255, 255, 100))
-                view.title.text = "Congratulations"
-                view.title.setTextColor(Color.BLACK)
+                view.title.setBackgroundColor(Color.RED)
+                view.title.text = "ア　タ　リ︎︎"
+                view.title.setTextColor(Color.WHITE)
                 view.image_checkin.setImageResource(R.drawable.baseline_redeem_white_24)
                 view.image_checkin.setColorFilter(Color.RED)
             }

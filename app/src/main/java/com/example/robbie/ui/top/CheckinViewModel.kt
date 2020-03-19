@@ -50,7 +50,7 @@ class CheckinViewModel(private val fragment: Fragment) : AndroidViewModel(fragme
     // Store CheckinInfo
     fun storeCheckinInfo(qrData: String) {
         // イベントデータ(JSON)読み込み
-            // ex.{"event_id":3, "event_name":"2020年6月WM&P部門会議", "event_point":1, "remarks":"通常開催", "lottery_rate":10}
+        // ex.{"event_id":1, "event_name":"2020年4月WM&P部門会議", "event_point":1, "remarks":"通常開催", "lottery_rate":1}
         try {
             // QRコード(JSON)パース
             val eventInfo = JSONObject(qrData)
